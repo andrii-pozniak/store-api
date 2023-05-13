@@ -1,0 +1,20 @@
+{
+  "name": "store-api",
+  "version": "1.0.0",
+  "description": "internet store",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./server.js",
+    "start:dev": "nodemon ./server.js"
+  },
+  "author": "Andrii Pozniak <andriipozniak@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.1.1",
+    "morgan": "^1.10.0"
+  }
+}
