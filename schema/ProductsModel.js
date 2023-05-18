@@ -1,4 +1,5 @@
-const { Schema, model, ShemaTypes } = require("mongoose");
+const { Schema, model, SchemaTypes } = require("mongoose");
+const { handleMongooseError } = require("../helpers/");
 
 const productSchema = new Schema({
   categoryName: {
@@ -22,45 +23,59 @@ const productSchema = new Schema({
       "Розпродаж",
       "Провід",
     ],
-    default: "Елементи живлення",
+    default: "Ліхтарі",
     required: [true, "Category not find"],
   },
   name: {
     type: String,
     minLength: 2,
-    maxLength: 16,
+    // maxLength: 16,
     //trim: true,
-    match: [
-      /^[a-zA-Zа-яА-ЯіІїЇґҐ]+(?: [a-zA-Zа-яА-ЯіІїЇґҐ]+)*$/,
-      "Only letters can be accepted",
-    ],
+    // match: [
+    //   /^[a-zA-Zа-яА-ЯіІїЇґҐ]+(?: [a-zA-Zа-яА-ЯіІїЇґҐ]+)*$/,
+    //   "Only letters can be accepted",
+    // ],
     required: [true, "Name is required"],
+    default: "Ліхтар 416-XPE, ЗУ USB, вбудований акумулятор, zoom",
   },
   imageURL: {
     type: String,
     required: [true, "PhotoURL is required"],
-    default: "https://aussiedlerbote.de/wp-content/uploads/2022/04/mongrel.jpg",
+    default: "https://www.mediafire.com/view/g6z47yt8k23p538/image_3_%252820%2529.png/file",
   },
   available: {
     type: String,
   },
-  additionalCategory: [
-    "Знижки",
-    "Безкоштовно",
-    "Кращі цінові пропозиції",
-    "Хіти продаж",
-    "Новинки",
-  ],
-  code: {
-    type: Number,
-    min: 0,
+  owner: {
+    type: SchemaTypes.ObjectId,
+    ref: "user",
   },
-  price: {
+  additionalCategory: {
+    type: String,
+    enum: [
+      "Знижки",
+      "Безкоштовно",
+      "Кращі цінові пропозиції",
+      "Хіти продаж",
+      "Новинки",
+    ],
+    default: "Знижки",
+    required: [true, "Category not find"],
+  },
+  codeProduct: {
     type: Number,
-    min: 0,
+    required: true,
+    default: 1689552,
+  },
+  priceProduct: {
+    type: Number,
+    required: true,
+    default: 300,
   },
 });
 
-const Products = model("products", productSchema);
+productSchema.post("save", handleMongooseError);
 
-module.exports = { Products };
+const Product = model("product", productSchema);
+
+module.exports = { Product };
