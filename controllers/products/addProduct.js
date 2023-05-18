@@ -1,16 +1,20 @@
-const {Products} = require("../../schema/ProductsModel");
+const {Product} = require("../../schema/ProductsModel");
 
-const addProduct = async (req, res) => {
+const addProduct = async (req, res, next) => {
   const { body } = req;
-  const { _id } = req.product;
+  const { id } = req.params;
+try {
+    const newProduct = await Product.create({
+        ...body, 
+        imageURL: req?.file?.path,
+        _id: id,
+      });
+      res.status(201).json(newProduct); 
+} catch (error) {
+    next(error);
+}
 
-  const newProduct = await Products.create({
-    ...body,
-    imageURL: req?.file?.path,
-    id: _id,
-  });
-
-  res.status(201).json(newProduct);
+  
 };
 
 module.exports = addProduct;
