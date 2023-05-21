@@ -22,6 +22,6 @@ router.get(
 
 router.get("/product/:id", ctrlWrapper(getProductsById));
 
-router.post("/create", ctrlWrapper(addProduct));
+router.post("/create", validation(joiProductAddSchema), ctrlWrapper(addProduct));
 
 module.exports = router;
