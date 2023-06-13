@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/products", productsRouter);
+app.use("/products", productsRouter);
 
 app.use((req, res, next) => {
     res.status(404).json({ message: 'Not found' })

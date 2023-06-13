@@ -6,7 +6,7 @@ const start = async() => {
     try {
         await connectMongo();
 
-        app.listen(3000, (error) => {
+        app.listen(5000, (error) => {
             if(error) {
                 console.log("Error at server", error);
             }

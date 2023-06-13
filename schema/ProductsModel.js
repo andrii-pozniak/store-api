@@ -51,16 +51,22 @@ const productSchema = new Schema({
     ref: "user",
   },
   additionalCategory: {
-    type: String,
-    enum: [
-      "Знижки",
-      "Безкоштовно",
-      "Кращі цінові пропозиції",
-      "Хіти продаж",
-      "Новинки",
-    ],
-    default: "Знижки",
-    required: [true, "Category not find"],
+    type: [Schema.Types.Mixed],
+    validate: {
+      validator: function (value) {
+        const validCategories = [
+          "Знижки",
+          "Безкоштовно",
+          "Кращі цінові пропозиції",
+          "Хіти продаж",
+          "Новинки",
+        ];
+        return value.every((category) => validCategories.includes(category));
+      },
+      message: "Invalid category",
+    },
+    default: [],
+    required: [true, "Category not found"],
   },
   codeProduct: {
     type: Number,
@@ -72,6 +78,10 @@ const productSchema = new Schema({
     required: true,
     default: 300,
   },
+  status: {
+    type: String,
+    required: [true, "status is required"],
+  }
 });
 
 productSchema.post("save", handleMongooseError);
