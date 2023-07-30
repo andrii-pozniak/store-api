@@ -46,10 +46,10 @@ const productSchema = new Schema({
   available: {
     type: String,
   },
-  owner: {
-    type: SchemaTypes.ObjectId,
-    ref: "user",
-  },
+  // owner: {
+  //   type: SchemaTypes.ObjectId,
+  //   ref: "user",
+  // },
   additionalCategory: {
     type: [Schema.Types.Mixed],
     validate: {
