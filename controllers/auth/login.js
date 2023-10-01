@@ -28,6 +28,7 @@ const login = async (req, res, next) => {
 await User.findByIdAndUpdate(user._id, {token});
 return res.status(201).json({
     token,
+    name: user.name,
 })
 
 };

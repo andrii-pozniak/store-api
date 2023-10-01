@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const nameRegexp = /^[a-zA-Zа-яА-ЯіІїЇґҐ]+(?: [a-zA-Zа-яА-ЯіІїЇґҐ]+)*$/;
+const nameRegexp = /^[a-zA-Zа-яА-ЯіІїЇґҐ]/;
 const emailRegexp = /^[\w-\.]+@([\w-]+\.)+[\w-]*$/;
 const passwordRegexp = /^[a-zA-Z0-9а-яА-Я]+$/;
 
@@ -48,6 +48,7 @@ const joiProductAddSchema = Joi.object({
 
 const joinUserSchema = Joi.object({
   name: Joi.string().pattern(nameRegexp).required(),
+  phone: Joi.number().min(7).required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().pattern(passwordRegexp).min(5).max(20).required(),
 });
