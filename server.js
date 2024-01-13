@@ -1,6 +1,7 @@
 const app = require("./app");
 require("dotenv").config;
-const{ connectMongo } = require("./db/connection");
+// const{ connectMongo } = require("./db/connection");
+const{ MONGODB_URL} = process.env
 
 const start = async() => {
     try {
